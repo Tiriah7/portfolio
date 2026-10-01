@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/* ===== TOKENS ===== */
+:root {
+  --bg: #000000;
+  --fg: #fafafa;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --card: #09090b;
+  --hover: #0f0f11;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== BASE ===== */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system;
+}
+
+/* Subtle grid behind everything, fading out toward the bottom */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at top, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 25%, transparent 75%);
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 30%, #71717a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-bottom: 0.4rem;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.nav-link {
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: #fff;
+}
+
+/* ===== HERO GLOW ===== */
+.hero-glow {
+  position: absolute;
+  top: -80px;
+  left: -10%;
+  width: 60%;
+  height: 420px;
+  background: radial-gradient(
+    closest-side,
+    rgba(99, 102, 241, 0.22),
+    rgba(20, 184, 166, 0.08) 60%,
+    transparent
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  background: var(--hover);
+  border-color: #3f3f46;
+}
+
+/* Cursor-following spotlight (position set by SpotlightCard.tsx) */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.07),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: #e4e4e7;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.btn-ghost:hover {
+  border-color: #52525b;
+  background: #111113;
+  transform: translateY(-1px);
+}
+
+/* ===== CHIPS & PILLS ===== */
+.chip {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: #a1a1aa;
+  background: #0c0c0e;
+  transition: border-color 0.2s, color 0.2s;
+}
+.chip:hover {
+  border-color: #52525b;
+  color: #fff;
+}
+
+.impact-pill {
+  align-self: flex-start;
+  font-size: 0.78rem;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
